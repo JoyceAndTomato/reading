@@ -1,0 +1,19 @@
+Title: Ngom SBF Build
+participant Jenkins
+participant Themisto
+participant xsuaa_jupiter
+participant broker_jupiter
+participant Jupiter
+participant ngom_sbf
+participant revenue_cloud_external_api (xsuaa clone)
+Note over Jenkins,ngom_sbf: Create NGOM SBF Application
+Jenkins->ngom_sbf: CF CLI: push ngom sbf via manifest
+ngom_sbf->broker_jupiter: CF CLI: bind service
+Jenkins->ngom_sbf: CF CLI: update broker via create-service-broker space scoped
+Note over Jenkins,revenue_cloud_external_api (xsuaa clone): Create External API
+Jenkins->Themisto: get security/all-api-scopes.json
+Themisto-->Jenkins: respond all-api-scopes.json
+Jenkins->revenue_cloud_external_api (xsuaa clone): CF CLI: delete service keys for revenue_cloud_external_api 
+Jenkins->revenue_cloud_external_api (xsuaa clone): CF CLI: delete revenue-cloud api instance
+Jenkins->revenue_cloud_external_api (xsuaa clone): CF CLI: create revenue-cloud api instance with all-api-scopes.json
+Jenkins->revenue_cloud_external_api (xsuaa clone): CF CLI: create service key for revenue_cloud_external_api

@@ -1,0 +1,15 @@
+{
+  "name": "converter",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "convert": "node node_modules/diagrams/bin/diagrams.js build .. && mv ../*.svg ../svg && node node_modules/svgexport/bin/index.js convertToPNG.json"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "diagrams": "0.9.6",
+    "svgexport": "0.3.2"
+  }
+}

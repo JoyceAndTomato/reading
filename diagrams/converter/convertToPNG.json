@@ -1,0 +1,30 @@
+[
+  {
+    "input" : ["../svg/NgomSbfBuild.sequence.svg"],
+    "output" : ["../render/NgomSbfBuild.sequence.png"]
+  },
+  {
+    "input" : ["../svg/UpdateServiceJson.sequence.svg"],
+    "output" : ["../render/UpdateServiceJson.sequence.png"]
+  },
+  {
+    "input" : ["../svg/UpdateMultiTenantConfig.sequence.svg"],
+    "output" : ["../render/UpdateMultiTenantConfig.sequence.png"]
+  },
+  {
+    "input" : ["../svg/UpdateDppConfig.sequence.svg"],
+    "output" : ["../render/UpdateDppConfig.sequence.png"]
+  },
+  {
+    "input" : ["../svg/RouterBuild.sequence.svg"],
+    "output" : ["../render/RouterBuild.sequence.png"]
+  },
+  {
+    "input" : ["../svg/RevenueCloudSaaSApplicationInitialBuild.sequence.svg"],
+    "output" : ["../render/RevenueCloudSaaSApplicationInitialBuild.sequence.png"]
+  },
+  {
+    "input" : ["../svg/RevenueCloudSaaSApplicationBuild.sequence.svg"],
+    "output" : ["../render/RevenueCloudSaaSApplicationBuild.sequence.png"]
+  }
+]

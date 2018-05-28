@@ -1,0 +1,10 @@
+Title: Router Build
+participant Jenkins
+participant Themisto
+participant xsuaa_jupiter
+participant broker_jupiter
+participant Router
+Note over Jenkins,Router: Update Router Application
+Jenkins->Router: CF CLI: push landscape-router via manifest
+Router->xsuaa_jupiter: CF CLI: bind service
+Router->broker_jupiter: CF CLI: bind service

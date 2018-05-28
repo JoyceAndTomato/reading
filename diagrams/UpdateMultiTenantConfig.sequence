@@ -1,0 +1,10 @@
+Title: Update of any multi-tenant-config
+participant User
+participant landscape_config
+participant Jenkins
+participant Themisto
+
+User->landscape_config: change route or path in multi-tenant-config
+landscape_config->Jenkins: provide json template
+Jenkins->Themisto: upload resources
+Jenkins->Jenkins: trigger Jupiter build

@@ -1,0 +1,14 @@
+Title: Update of any service.json
+participant User
+participant landscape_config
+participant Jenkins
+participant Themisto
+
+User->landscape_config: change scope in an service.json
+landscape_config->Jenkins: validation checks and generation of xs-security.jsons
+Jenkins->Themisto: upload resources
+Jenkins->Jenkins: trigger Jupiter build
+Jenkins->Jenkins: trigger Landscape-Router deploy
+Jenkins->Jenkins: trigger Pdm-Dummy-App deploy
+Jenkins->Jenkins: trigger Ngom-Sbf deploy
+Jenkins->Jenkins: trigger any additional apps

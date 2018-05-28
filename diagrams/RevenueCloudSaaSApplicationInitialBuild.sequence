@@ -1,0 +1,63 @@
+Title: Revenue Cloud SaaS Application Initial Build
+participant Jenkins
+participant Themisto
+participant xsuaa_jupiter
+participant broker_jupiter
+participant pdm_dummy_app
+participant ups_pdm_jupiter
+participant pdm_jupiter
+participant Jupiter
+participant ngom_sbf
+participant SaaS_Registry_Application
+participant SaaS_Registry_Service
+participant revenue_cloud_external_api (xsuaa clone)
+Note over Jenkins,xsuaa_jupiter: XSUAA Type Application
+Jenkins->Themisto: get security/xs-ui-security.json
+Themisto-->Jenkins: respond with xs-ui-security.json
+Jenkins->xsuaa_jupiter: CF CLI: create service instance with xs-ui-security json
+Note over Jenkins,broker_jupiter: XSUAA Type Broker
+Jenkins->Themisto: get security/xs-api-security.json
+Themisto-->Jenkins: respond with xs-api-security.json
+Jenkins->broker_jupiter: CF CLI: create service instance with xs-api-security json
+Note over Jenkins,pdm_dummy_app: Personal Data Manager
+Jenkins->Themisto: get dpp/?config?
+Themisto-->Jenkins: respond ?config?
+Jenkins->pdm_jupiter: CF CLI: create personal data manger instance with ?config?
+Jenkins->pdm_dummy_app: CF CLI: push pdm dummy application
+pdm_dummy_app->xsuaa_jupiter: CF CLI: bind instance
+Jenkins->Themisto: get dpp/pdm-config.v1.json
+Themisto-->Jenkins: respond pdm-config.v1.json
+pdm_dummy_app->pdm_jupiter: CF CLI: bind instance with pdm-config.v1.json
+pdm_dummy_app->ups_pdm_jupiter: CF CLI: create user provided service
+Note over Jenkins,Jupiter: Create Jupiter Application
+Jenkins->Jupiter: CF CLI: push jupiter via manifest
+Jupiter->xsuaa_jupiter: CF CLI: bind service
+Jupiter->broker_jupiter: CF CLI: bind service
+Jupiter->ups_pdm_jupiter: CF CLI: bind service
+Note over Jenkins,ngom_sbf: Create NGOM SBF Application
+Jenkins->ngom_sbf: CF CLI: push ngom sbf via manifest
+ngom_sbf->broker_jupiter: CF CLI: bind service
+Jenkins->Jupiter: CF CLI: register broker via create-service-broker
+Note over Jenkins,SaaS_Registry_Application: SaaS Registry Type Application
+Jenkins->Themisto: get multi-tenant-config/application-config.json
+Themisto-->Jenkins: respond with application-config.json
+Jenkins->Jupiter: CF CLI: get xsuaa-jupiter envs
+Jupiter->Jenkins: respond with envs
+Jenkins->Jenkins: fill application-config.json template with envs
+Jenkins->SaaS_Registry_Application: CF CLI: create service instance with application-config.json
+Note over Jenkins,SaaS_Registry_Service: SaaS Registry Type Service
+Jenkins->Themisto: get multi-tenant-config/service-config.json
+Themisto-->Jenkins: respond with service-config.json
+Jenkins->Jupiter: CF CLI: get broker-jupiter envs
+Jupiter->Jenkins: respond with envs
+Jenkins->Jenkins: fill service-config.json template with envs
+Jenkins->SaaS_Registry_Service: CF CLI: create service instance with service-config.json
+Note over Jenkins,revenue_cloud_external_api (xsuaa clone): Create External API Space Scoped
+Jenkins->Themisto: get security/all-api-scopes.json
+Themisto-->Jenkins: respond all-api-scopes.json
+Jenkins->revenue_cloud_external_api (xsuaa clone): CF CLI: create revenue-cloud api instance with all-api-scopes.json
+Jenkins->revenue_cloud_external_api (xsuaa clone): CF CLI: create service key for revenue_cloud_external_api
+Note over Jenkins,SaaS_Registry_Service: Update Jupiter for SaaS Registry
+Jenkins->Jupiter: deploy jupiter via manifest
+Jupiter->SaaS_Registry_Application: bind service
+Jupiter->SaaS_Registry_Service: bind service

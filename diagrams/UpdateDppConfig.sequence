@@ -1,0 +1,10 @@
+Title: Update of dpp config files
+participant User
+participant landscape_config
+participant Jenkins
+participant Themisto
+
+User->landscape_config: change pdm or rm config file
+landscape_config->Jenkins: TODO json validation 
+Jenkins->Themisto: upload resources
+Jenkins->Jenkins: trigger Jupiter build

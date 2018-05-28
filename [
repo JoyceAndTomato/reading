@@ -1,0 +1,10 @@
+[
+  {
+    "input" : ["svg/simple.svg"],
+    "output" : ["exported/32h.png :32"]
+  },
+  {
+    "input" : ["svg/simple.svg"],
+    "output" : ["exported/32h.png :32"]
+  }
+]
